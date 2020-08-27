@@ -6,6 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin') // 打包前清�
 const postcssNormalize = require('postcss-normalize') // 允许css文件中用@import引入其他css文件
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin') // 压缩css文件
 // const safePostCssParser = require('postcss-safe-parser') //查找并修复 CSS 语法错误(网上这么写的)暂时没发现有什么用
+const portfinder = require('portfinder')// 检查端口是否被占用
 const TerserPlugin = require('terser-webpack-plugin') // 压缩js文件
 const apiMocker = require('mocker-api') // mock工具可以热更新比json-server好用
 let configs = []
@@ -78,9 +79,13 @@ const getPlugins = env => {
   return plugins
 }
 
-module.exports = env => {
+module.exports = async env => {
   isDevelopment = env === 'development'
   isProduction = env === 'production'
+  const port = await portfinder.getPortPromise({
+    port: 8000, // 起始端口号
+    stopPort: 9000// 最大端口号
+  }) // 这里检查到端口被占用自动+1 默认端口8000
   const entry = {}
   configs = isDevelopment
     ? require('./script/development.config.json')
@@ -97,7 +102,7 @@ module.exports = env => {
       stats: 'errors-only',
       open: true, // 打开浏览器
       overlay: true, // 出现编译器错误或警告时，在浏览器中显示全屏覆盖。默认禁用。如果只想显示编译器错误
-      port: 5000, // 端口号
+      port, // 端口号
       // progress: true, // 加进度条,会在控制台显示一堆信息，可以去掉
       disableHostCheck: isDevelopment, // 防止ie报警
       openPage: `${configs[0].name}/index.html`, // 需要打开的页面
@@ -167,7 +172,12 @@ module.exports = env => {
         },
         {
           test: /\.(scss|sass)$/,
-          use: getStyleLoaders({ importLoaders: 3 }, 'sass-loader'),
+          use: getStyleLoaders({ importLoaders: 3 }, {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }),
           sideEffects: true
         },
         {
