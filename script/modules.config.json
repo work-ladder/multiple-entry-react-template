@@ -1,0 +1,20 @@
+{
+    "jsPage": {
+        "entry": "./src/modules/jsPage/index.js",
+        "template": "public/index.html",
+        "title": "js页面",
+        "inject": "body"
+    },
+    "tsPage": {
+        "entry": "./src/modules/tsPage/index.js",
+        "template": "public/index.html",
+        "title": "ts页面",
+        "inject": "body"
+    },
+    "demoPage": {
+        "entry": "./src/modules/demoPage/index.js",
+        "template": "public/index.html",
+        "title": "文档页面",
+        "inject": "body"
+    }
+}

@@ -1,0 +1,25 @@
+.page1{
+    color: red;
+    a {
+        clear: both;
+    }
+}
+.authentication {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    .authentication-title {
+      width: 100%;
+      height: 72px;
+      background-color: #38adff;
+      font-size: 25px;
+      text-align: center;
+      line-height: 72px;
+      color: #fff;
+    }
+    .authentication-main {
+      height: calc(100% - 72px);
+      position: relative;
+      box-sizing: border-box;
+    }
+}
