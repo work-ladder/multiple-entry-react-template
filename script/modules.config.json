@@ -1,18 +1,18 @@
 {
     "jsPage": {
-        "entry": "./src/modules/jsPage/index.js",
+        "entry": "./src/pages/jsPage/index.js",
         "template": "public/index.html",
         "title": "js页面",
         "inject": "body"
     },
     "tsPage": {
-        "entry": "./src/modules/tsPage/index.js",
+        "entry": "./src/pages/tsPage/index.js",
         "template": "public/index.html",
         "title": "ts页面",
         "inject": "body"
     },
     "demoPage": {
-        "entry": "./src/modules/demoPage/index.js",
+        "entry": "./src/pages/demoPage/index.js",
         "template": "public/index.html",
         "title": "文档页面",
         "inject": "body"
