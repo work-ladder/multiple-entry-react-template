@@ -1,9 +1,8 @@
 const fs = require('fs')
 const inquirer = require('inquirer')
 const allModules = require('./modules.config.json')
-const { startShell, delPath } = require('./until')
 const choices = []
-delPath('./dist')
+const devPageCfg = []
 for (const key in allModules) {
   const element = allModules[key]
   choices.push({
@@ -15,7 +14,7 @@ for (const key in allModules) {
 const promptList = [
   {
     type: 'checkbox',
-    message: '请选择需要打包的模块',
+    message: '请选择需要加载的模块',
     name: 'fileList',
     choices: choices,
     validate: function (answers) {
@@ -37,19 +36,18 @@ const confirmList = [
   }
 ]
 inquirer.prompt(promptList).then(answers => {
-  confirmList[0].message = `确定加载[${answers.fileList}]模块吗？`
-  inquirer.prompt(confirmList).then(async res => {
+  confirmList[0].message = `确定打包[${answers.fileList}]模块吗？`
+  inquirer.prompt(confirmList).then(res => {
     if (res.isConfirm === 'Yes') {
       console.log(answers)
-      for (let i = 0; i < answers.fileList.length; i++) {
-        const e = answers.fileList[i]
+      answers.fileList.forEach(e => {
         const key = dealChoices(e)
-        fs.writeFileSync(
-          'script/production.config.json',
-          JSON.stringify([{ name: key, ...allModules[key] }])
-        )
-        await startShell('webpack --env=production')
-      }
+        devPageCfg.push({ name: key, ...allModules[key] })
+      })
+      fs.writeFileSync(
+        'script/production.config.json',
+        JSON.stringify(devPageCfg)
+      )
     }
   })
 })

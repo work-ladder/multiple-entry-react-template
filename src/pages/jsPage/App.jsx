@@ -11,6 +11,7 @@ class App extends React.Component {
     axios({
       url: '/api/list'
     }).then(res => console.log('mock模拟数据', res))
+      .catch(err => console.log(err))
   }
 
   render () {

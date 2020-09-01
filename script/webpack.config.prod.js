@@ -1,18 +1,13 @@
 const path = require('path')
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin') // html模板
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 抽取css插件
 const { CleanWebpackPlugin } = require('clean-webpack-plugin') // 打包前清理文件夹
 const postcssNormalize = require('postcss-normalize') // 允许css文件中用@import引入其他css文件
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin') // 压缩css文件
-// const safePostCssParser = require('postcss-safe-parser') //查找并修复 CSS 语法错误(网上这么写的)暂时没发现有什么用
-const portfinder = require('portfinder')// 检查端口是否被占用
 const TerserPlugin = require('terser-webpack-plugin') // 压缩js文件
-const apiMocker = require('mocker-api') // mock工具可以热更新比json-server好用
-let configs = []
-let isDevelopment = true
-let isProduction = false
+
 const shouldMap = true // 是否强制需要映射map文件设置成false 生产环境不产生sourcemap文件提高构建速度
+
 const getStyleLoaders = (cssOptions, preProcessor) => {
   const loaders = [
     {
@@ -23,7 +18,7 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
       loader: 'css-loader',
       options: {
         ...cssOptions,
-        sourceMap: isDevelopment || shouldMap
+        sourceMap: shouldMap
       }
     },
     {
@@ -50,76 +45,42 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
   return loaders
 }
 
-// 这里是多页应用配置
-const getPlugins = env => {
-  let plugins = [
-    ...configs.map(
-      e =>
-        new HtmlWebpackPlugin({
-          template: e.template, // 模板路径
-          filename: isProduction ? 'index.html' : `${e.name}/index.html`, // 输出的html文件名和位置
-          favicon: path.resolve('public/favicon.ico'),
-          title: e.title,
-          hash: true, // 引入的js会带上hash参数,
-          inject: e.inject,
-          chunks: [e.name],
-          minify: {
-            removeAttributeQuotes: true, // 去掉双引号html
-            collapseInlineTagWhitespace: true, // 折叠html成一行
-            minifyCSS: true // 压缩内联css
-          }
-        })
-    ),
+// 这里是插件
+const getPlugins = e => {
+  const plugins = [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: e.template, // 模板路径
+      favicon: path.resolve('public/favicon.ico'),
+      title: e.title,
+      hash: true, // 引入的js会带上hash参数,
+      minify: {
+        removeAttributeQuotes: true, // 去掉双引号html
+        collapseInlineTagWhitespace: true, // 折叠html成一行
+        minifyCSS: true // 压缩内联css
+      }
+    }),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css'
+      filename: 'css/index.css'
     })
   ]
-  if (isDevelopment) plugins.push(new webpack.HotModuleReplacementPlugin()) // 热更新只能在开发环境中使用
-  if (isProduction) plugins = [new CleanWebpackPlugin(), ...plugins]
   return plugins
 }
 
-module.exports = async env => {
-  isDevelopment = env === 'development'
-  isProduction = env === 'production'
-  const port = await portfinder.getPortPromise({
-    port: 8000, // 起始端口号
-    stopPort: 9000// 最大端口号
-  }) // 这里检查到端口被占用自动+1 默认端口8000
-  const entry = {}
-  configs = isDevelopment
-    ? require('./script/development.config.json')
-    : require('./script/production.config.json')
-  configs.forEach(e => {
-    entry[e.name] = e.entry
-  })
+const defaultConfigs = require('./production.config.json')
+
+module.exports = defaultConfigs.map(e => env => {
   return {
-    devServer: {
-      before (app) {
-        apiMocker(app, path.resolve('./mock/mocker.js'))
-      },
-      // 开发服务器配置
-      stats: 'errors-only',
-      open: true, // 打开浏览器
-      overlay: true, // 出现编译器错误或警告时，在浏览器中显示全屏覆盖。默认禁用。如果只想显示编译器错误
-      port, // 端口号
-      // progress: true, // 加进度条,会在控制台显示一堆信息，可以去掉
-      disableHostCheck: isDevelopment, // 防止ie报警
-      openPage: `${configs[0].name}/index.html`, // 需要打开的页面
-      // https:true,//启用https一般不用
-      // contentBase:"./dist",//入口文件夹，可以不写默认dist,别的目录名需要写
-      compress: true // 设置开启压缩
-    },
-    devtool: isDevelopment ? 'cheap-module-eval-source-map' : (shouldMap ? 'cheap-module-source-map' : ''), // 最新版用这个
+    devtool: shouldMap ? 'cheap-module-source-map' : '', // 最新版用这个
     // 下列优化项
     optimization: {
-      minimize: isDevelopment || shouldMap, // 启用/禁用多进程并行运行，不设置true下面无效
+      minimize: shouldMap, // 启用/禁用多进程并行运行，不设置true下面无效
       minimizer: [
         new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: {
             // parser: safePostCssParser,
             map:
-              isDevelopment || shouldMap
+              shouldMap
                 ? {
                   // 不生成内联映射,这样配置就会生成一个source-map文件
                   inline: false,
@@ -131,22 +92,25 @@ module.exports = async env => {
           }
         }),
         new TerserPlugin({
-          sourceMap: isDevelopment || shouldMap // 生产源码映射文件
+          sourceMap: shouldMap // 生产源码映射文件
         })
       ]
     },
     mode: env, // 两种模式一种development开发，一种production生产
-    entry, // 入口
+    entry: e.entry, // 入口
     output: {
       filename: 'js/[name].js', // 写成bundle.[hash].js会将文件名hash化  bundle.[hash:8].js只有8位hash
       chunkFilename: 'js/[name].js',
-      publicPath: isDevelopment ? '/' : '',
+      publicPath: '',
       path: path.resolve(
         __dirname,
-        isProduction ? `dist/${configs[0].name}` : 'dist'
+        `dist/${e.name}`
       ) // 设置输出目录
     },
-    plugins: getPlugins(env),
+    performance: {
+      hints: false// 消除打包时单文件过大警告
+    },
+    plugins: getPlugins(e),
     module: {
       rules: [
         {
@@ -205,4 +169,4 @@ module.exports = async env => {
       // }
     }
   }
-}
+})
