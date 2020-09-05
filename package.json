@@ -4,7 +4,7 @@
   "description": "webpack学习项目",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "node script/build.js  && webpack --config script/webpack.config.prod.js --env=production --progress",
     "start": "node script/start.js && webpack-dev-server --config script/webpack.config.dev.js  --env=development --progress",
     "serve": "node script/server.js",
@@ -63,7 +63,9 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@sdp.nd/fish": "^3.11.1",
     "axios": "^0.19.2",
+    "jest": "^26.4.2",
     "mocker-api": "^2.3.5",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
@@ -79,6 +81,9 @@
     "redux-actions": "^2.6.5",
     "redux-thunk": "^2.3.0"
   },
+  "jest": {
+    "testRegex": "/test/.*.test.jsx?$"
+  },
   "babel": {
     "presets": [
       "@babel/env",
@@ -93,6 +98,14 @@
       ],
       [
         "@babel/plugin-proposal-class-properties"
+      ],
+      [
+        "import",
+        {
+          "libraryName": "fish",
+          "libraryDirectory": "lib",
+          "style": true
+        }
       ]
     ]
   },

@@ -162,11 +162,11 @@ module.exports = defaultConfigs.map(e => env => {
     },
     resolve: {
       // 引入文件时忽略后缀名
-      extensions: ['.js', '.jsx', '.json']
+      extensions: ['.js', '.jsx', '.json'],
       // 设置别名
-      // alias: {
-      //   fish: '@sdp.nd/fish' // 这样配置后fish  可以指向 @sdp.nd/fish 目录
-      // }
+      alias: {
+        fish: '@sdp.nd/fish' // 这样配置后fish  可以指向 @sdp.nd/fish 目录
+      }
     }
   }
 })
