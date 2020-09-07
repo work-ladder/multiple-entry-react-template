@@ -185,6 +185,10 @@ module.exports = async env => {
           test: /\.(js|mjs|jsx|ts|tsx)$/,
           exclude: /node_modules/,
           loader: ['babel-loader', 'eslint-loader']
+        },
+        {
+          test: /\.react$/,
+          loader: path.resolve(__dirname, '../loader/react-loader.js')
         }
       ]
     },
