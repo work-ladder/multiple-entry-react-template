@@ -65,6 +65,8 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@gem-mine/durex": "^2.1.0",
+    "@gem-mine/durex-router": "^1.4.3",
     "@sdp.nd/fish": "^3.11.1",
     "axios": "^0.19.2",
     "jest": "^26.4.2",
@@ -72,16 +74,8 @@
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-app-polyfill": "^1.0.6",
-    "react-dom": "^16.13.1",
-    "react-intl": "^2.6.0",
-    "react-redux": "^7.2.0",
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0",
-    "react-router-redux": "^4.0.8",
-    "redux": "^4.0.5",
-    "redux-actions": "^2.6.5",
-    "redux-thunk": "^2.3.0"
+    "react-dom": "^16.13.0",
+    "react-app-polyfill": "^1.0.6"
   },
   "babel": {
     "presets": [
