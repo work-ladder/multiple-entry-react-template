@@ -67,15 +67,17 @@
   "dependencies": {
     "@gem-mine/durex": "^2.1.0",
     "@gem-mine/durex-router": "^1.4.3",
+    "@gem-mine/react-loadable": "^5.5.0",
     "@sdp.nd/fish": "^3.11.1",
     "axios": "^0.19.2",
+    "babel-jest": "^26.3.0",
     "jest": "^26.4.2",
     "mocker-api": "^2.3.5",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-dom": "^16.13.0",
-    "react-app-polyfill": "^1.0.6"
+    "react-app-polyfill": "^1.0.6",
+    "react-dom": "^16.13.0"
   },
   "babel": {
     "presets": [

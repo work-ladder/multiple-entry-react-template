@@ -1,6 +1,6 @@
 import React from 'react'
 import { Router, Routes } from '@gem-mine/durex-router'
-// import './index.scss'
+import './index.scss'
 
 class App extends React.Component {
   render () {
