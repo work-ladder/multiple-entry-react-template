@@ -4,9 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin') // html模板
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 抽取css插件
 const postcssNormalize = require('postcss-normalize') // 允许css文件中用@import引入其他css文件
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin') // 压缩css文件
-// const safePostCssParser = require('postcss-safe-parser') //查找并修复 CSS 语法错误(网上这么写的)暂时没发现有什么用
+const safePostCssParser = require('postcss-safe-parser') // 查找并修复 CSS 语法错误(网上这么写的)暂时没发现有什么用
 const portfinder = require('portfinder')// 检查端口是否被占用
-const TerserPlugin = require('terser-webpack-plugin') // 压缩js文件
 const apiMocker = require('mocker-api') // mock工具可以热更新比json-server好用
 let configs = []
 const shouldMap = true // 是否强制需要映射map文件设置成false 生产环境不产生sourcemap文件提高构建速度
@@ -37,12 +36,18 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
             stage: 3
           }),
           postcssNormalize()
-        ]
+        ],
+        sourceMap: shouldMap
       }
     }
   ]
   if (preProcessor) {
-    loaders.push(preProcessor)
+    loaders.push({
+      loader: 'resolve-url-loader',
+      options: {
+        sourceMap: shouldMap
+      }
+    }, preProcessor)
   }
   return loaders
 }
@@ -76,7 +81,7 @@ const getPlugins = env => {
 module.exports = async env => {
   const port = await portfinder.getPortPromise({
     port: 8000, // 起始端口号
-    stopPort: 9000// 最大端口号
+    stopPort: 9000 // 最大端口号
   }) // 这里检查到端口被占用自动+1 默认端口8000
   const entry = {}
   configs = require('./development.config.json')
@@ -93,7 +98,7 @@ module.exports = async env => {
       open: true, // 打开浏览器
       overlay: true, // 出现编译器错误或警告时，在浏览器中显示全屏覆盖。默认禁用。如果只想显示编译器错误
       port, // 端口号
-      // progress: true, // 加进度条,会在控制台显示一堆信息，可以去掉
+      progress: true, // 加进度条,会在控制台显示一堆信息，可以去掉
       disableHostCheck: true, // 防止ie报警
       openPage: `${configs[0].name}/index.html`, // 需要打开的页面
       // https:true,//启用https一般不用
@@ -103,25 +108,22 @@ module.exports = async env => {
     devtool: 'cheap-module-eval-source-map', // 最新版用这个
     // 下列优化项
     optimization: {
-      minimize: shouldMap, // 启用/禁用多进程并行运行，不设置true下面无效
+      minimize: true, // 启用/禁用多进程并行运行，不设置true下面无效
       minimizer: [
         new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: {
-            // parser: safePostCssParser,
-            map:
-               shouldMap
-                 ? {
-                   // 不生成内联映射,这样配置就会生成一个source-map文件
-                   inline: false,
-                   // 向css文件添加source-map路径注释
-                   // 如果没有此项压缩后的css会去除source-map路径注释
-                   annotation: true
-                 }
-                 : false
+            parser: safePostCssParser,
+            map: shouldMap && {
+              // 不生成内联映射,这样配置就会生成一个source-map文件
+              inline: false,
+              // 向css文件添加source-map路径注释
+              // 如果没有此项压缩后的css会去除source-map路径注释
+              annotation: true
+            }
+          },
+          cssProcessorPluginOptions: {
+            preset: ['default', { minifyFontValues: { removeQuotes: false } }]
           }
-        }),
-        new TerserPlugin({
-          sourceMap: shouldMap // 生产源码映射文件
         })
       ]
     },
@@ -150,7 +152,7 @@ module.exports = async env => {
           use: getStyleLoaders(
             { importLoaders: 3 },
             {
-              loader: require.resolve('less-loader'),
+              loader: 'less-loader',
               options: {
                 lessOptions: {
                   javascriptEnabled: true
@@ -183,6 +185,10 @@ module.exports = async env => {
           test: /\.(js|mjs|jsx|ts|tsx)$/,
           exclude: /node_modules/,
           loader: ['babel-loader', 'eslint-loader']
+        },
+        {
+          test: /\.react$/,
+          loader: path.resolve(__dirname, '../loader/react-loader.js')
         }
       ]
     },

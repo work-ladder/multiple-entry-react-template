@@ -6,6 +6,7 @@ const data = [
 ]
 
 const proxy = {
+
   'GET /api/list': (req, res) => {
     const { number } = req.query
     if (number === '1') data.push({ name: '肯德基', describe: '儿童早餐', money: 50, hot: 40, number: 20 })

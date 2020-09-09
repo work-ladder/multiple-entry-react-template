@@ -35,12 +35,18 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
             stage: 3
           }),
           postcssNormalize()
-        ]
+        ],
+        sourceMap: shouldMap
       }
     }
   ]
   if (preProcessor) {
-    loaders.push(preProcessor)
+    loaders.push({
+      loader: 'resolve-url-loader', // 让scss生成的源文件地址正确
+      options: {
+        sourceMap: shouldMap
+      }
+    }, preProcessor)
   }
   return loaders
 }
@@ -71,10 +77,10 @@ const defaultConfigs = require('./production.config.json')
 
 module.exports = defaultConfigs.map(e => env => {
   return {
-    devtool: shouldMap ? 'cheap-module-source-map' : '', // 最新版用这个
+    devtool: shouldMap ? 'source-map' : '', // 最新版用这个
     // 下列优化项
     optimization: {
-      minimize: shouldMap, // 启用/禁用多进程并行运行，不设置true下面无效
+      minimize: true, // 启用/禁用多进程并行运行，不设置true下面无效
       minimizer: [
         new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: {
@@ -89,9 +95,35 @@ module.exports = defaultConfigs.map(e => env => {
                   annotation: true
                 }
                 : false
+          },
+          cssProcessorPluginOptions: {
+            preset: ['default', { minifyFontValues: { removeQuotes: false } }]
           }
         }),
         new TerserPlugin({
+          terserOptions: {
+            parse: {
+              ecma: 8
+            },
+            compress: {
+              ecma: 5,
+              warnings: false,
+              comparisons: false,
+              inline: 2
+            },
+            mangle: {
+              safari10: true
+            },
+            keep_classnames: shouldMap,
+            keep_fnames: shouldMap,
+            output: {
+              ecma: 5,
+              comments: false,
+              ascii_only: true
+            }
+          },
+          parallel: true, // 启用/禁用多进程并行运行提高构建速度
+          extractComments: false, // 防止生成LICENSE.txt文件
           sourceMap: shouldMap // 生产源码映射文件
         })
       ]
@@ -104,7 +136,7 @@ module.exports = defaultConfigs.map(e => env => {
       publicPath: '',
       path: path.resolve(
         __dirname,
-        `dist/${e.name}`
+        `../dist/${e.name}`
       ) // 设置输出目录
     },
     performance: {
@@ -124,7 +156,7 @@ module.exports = defaultConfigs.map(e => env => {
           use: getStyleLoaders(
             { importLoaders: 3 },
             {
-              loader: require.resolve('less-loader'),
+              loader: 'less-loader',
               options: {
                 lessOptions: {
                   javascriptEnabled: true
