@@ -3,105 +3,14 @@
 exports[`基本测试 renders correctly 1`] = `
 initialize {
   "0": Object {
-    "attribs": Object {
-      "class": "page1",
-    },
+    "attribs": Object {},
     "children": Array [
       Object {
-        "data": "这是页面1",
-        "next": Object {
-          "attribs": Object {
-            "class": "fish-btn",
-            "type": "button",
-          },
-          "children": Array [
-            Object {
-              "attribs": Object {},
-              "children": Array [
-                Object {
-                  "data": "测 试",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "text",
-                },
-              ],
-              "name": "span",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": null,
-              "parent": [Circular],
-              "prev": null,
-              "type": "tag",
-              "x-attribsNamespace": Object {},
-              "x-attribsPrefix": Object {},
-            },
-          ],
-          "name": "button",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": null,
-          "parent": [Circular],
-          "prev": [Circular],
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-            "type": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-            "type": undefined,
-          },
-        },
+        "data": "demo 页面",
+        "next": null,
         "parent": [Circular],
         "prev": null,
         "type": "text",
-      },
-      Object {
-        "attribs": Object {
-          "class": "fish-btn",
-          "type": "button",
-        },
-        "children": Array [
-          Object {
-            "attribs": Object {},
-            "children": Array [
-              Object {
-                "data": "测 试",
-                "next": null,
-                "parent": [Circular],
-                "prev": null,
-                "type": "text",
-              },
-            ],
-            "name": "span",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "tag",
-            "x-attribsNamespace": Object {},
-            "x-attribsPrefix": Object {},
-          },
-        ],
-        "name": "button",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": Object {
-          "data": "这是页面1",
-          "next": [Circular],
-          "parent": [Circular],
-          "prev": null,
-          "type": "text",
-        },
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-          "type": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-          "type": undefined,
-        },
       },
     ],
     "name": "div",
@@ -124,12 +33,8 @@ initialize {
       "x-attribsPrefix": Object {},
     },
     "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-    },
+    "x-attribsNamespace": Object {},
+    "x-attribsPrefix": Object {},
   },
   "_root": [Circular],
   "length": 1,

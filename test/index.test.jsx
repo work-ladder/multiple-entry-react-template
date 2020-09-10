@@ -2,7 +2,7 @@ import React from 'react'
 import { render, mount, configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import App from '../src/pages/jsPage/App'
+import Demo from '../src/pages/jsPage/page/demo'
 
 configure({ adapter: new Adapter() })
 
@@ -20,9 +20,9 @@ function mountTest (Component) {
 }
 
 describe('基本测试', () => {
-  mountTest(App)
+  mountTest(Demo)
   it('renders correctly', () => {
-    const wrapper = render(<App />)
+    const wrapper = render(<Demo />)
     expect(wrapper).toMatchSnapshot()
   })
 })

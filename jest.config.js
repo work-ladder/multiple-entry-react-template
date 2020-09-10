@@ -1,7 +1,8 @@
 module.exports = {
   verbose: true,
   moduleNameMapper: {
-    '^@fish$': '/node_modules/@sdp.nd/fish'
+    '^fish': '/node_modules/@sdp.nd/fish',
+    '\\.[scss|less]$': '<rootDir>/__mocks__/styleMock.js'
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'scss'],
   testPathIgnorePatterns: ['/node_modules/', 'dekko', 'node'],

@@ -4,7 +4,7 @@
   "description": "webpack学习项目",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js --test",
+    "test": "jest",
     "build": "node script/build.js  && webpack --config script/webpack.config.prod.js --env=production --progress",
     "start": "node script/start.js && webpack-dev-server --config script/webpack.config.dev.js  --env=development",
     "serve": "node script/server.js",
@@ -79,7 +79,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
-    "react-dom": "^16.13.0"
+    "react-dom": "^16.13.0",
+    "react-test-renderer": "^16.13.1"
   },
   "babel": {
     "presets": [
