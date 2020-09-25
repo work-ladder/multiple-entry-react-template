@@ -1,6 +1,6 @@
 module.exports = {
   verbose: true,
-  moduleNameMapper: { '^fish/(.*)$': '<rootDir>\\node_modules\\@sdp.nd\\fish\\$1' },
+  moduleNameMapper: { '^antd/(.*)$': '<rootDir>\\node_modules\\@sdp.nd\\fish\\$1' },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'scss'],
   testRegex: '/test/.*.test.jsx?$',
   transformIgnorePatterns: ['node_modules'],

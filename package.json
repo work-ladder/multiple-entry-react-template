@@ -26,6 +26,7 @@
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
+    "babel-runtime": "^6.26.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^26.3.0",
     "babel-eslint": "^10.1.0",
@@ -75,7 +76,7 @@
     "@gem-mine/durex": "^2.1.0",
     "@gem-mine/durex-router": "^1.4.3",
     "@gem-mine/react-loadable": "^5.5.0",
-    "@sdp.nd/fish": "^3.11.1",
+    "antd": "^4.6.5",
     "axios": "^0.19.2",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
@@ -101,7 +102,7 @@
       [
         "import",
         {
-          "libraryName": "fish",
+          "libraryName": "antd",
           "libraryDirectory": "lib",
           "style": true
         }

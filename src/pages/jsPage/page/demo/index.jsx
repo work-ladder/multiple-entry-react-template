@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'fish'
+import { Button } from 'antd'
 
 export default function DemoIndex () {
   return (

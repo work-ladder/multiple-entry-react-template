@@ -9,7 +9,7 @@ initialize {
         "data": "demo 页面",
         "next": Object {
           "attribs": Object {
-            "class": "fish-btn",
+            "class": "ant-btn",
             "type": "button",
           },
           "children": Array [
@@ -55,7 +55,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "fish-btn",
+          "class": "ant-btn",
           "type": "button",
         },
         "children": Array [
