@@ -6,6 +6,7 @@
     "react/jsx-handler-names": "off",
     "camelcase": "off",
     "no-debugger": "off",
-    "indent": ["error", 2, { "ObjectExpression": 1 }]
+    "indent": ["error", 2, { "ObjectExpression": 1 }],
+    "react/prop-types": "off"
   }
 }

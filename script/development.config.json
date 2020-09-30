@@ -1,1 +1,1 @@
-[{"name":"jsPage","entry":"./src/pages/jsPage/index.js","template":"public/index.html","title":"js页面","inject":"body"}]
+[{"name":"demoPage","entry":"./src/pages/demoPage/index.js","template":"public/index.html","title":"文档页面","inject":"body"}]

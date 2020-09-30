@@ -1074,6 +1074,17 @@
   resolved "https://registry.npm.taobao.org/@gem-mine/immutable/download/@gem-mine/immutable-1.0.0.tgz#d81ff14086aa762533df0848fb25ce489a0d8352"
   integrity sha1-2B/xQIaqdiUz3whI+yXOSJoNg1I=
 
+"@gem-mine/intl@^2.1.2":
+  version "2.1.2"
+  resolved "http://registry.npm.sdp.nd/@gem-mine/intl/download/@gem-mine/intl-2.1.2.tgz#666c393a706e771f3701553a6057db3d2ac26eba"
+  integrity sha1-Zmw5OnBudx83AVU6YFfbPSrCbro=
+  dependencies:
+    escape-html "^1.0.3"
+    intl "^1.2.5"
+    intl-messageformat "^2.2.0"
+    load-script "^1.0.0"
+    query-string "^5.1.1"
+
 "@gem-mine/react-loadable@^5.5.0":
   version "5.5.0"
   resolved "https://registry.npm.taobao.org/@gem-mine/react-loadable/download/@gem-mine/react-loadable-5.5.0.tgz#7de1f933645703b6d2f63c1827e26789c223ea4b"
@@ -2307,6 +2318,14 @@ babel-preset-jest@^26.3.0:
     babel-plugin-jest-hoist "^26.2.0"
     babel-preset-current-node-syntax "^0.1.3"
 
+babel-runtime@^6.26.0:
+  version "6.26.0"
+  resolved "http://registry.npm.sdp.nd/babel-runtime/download/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
+  integrity sha1-llxwWGaOgrVde/4E/yM3vItWR/4=
+  dependencies:
+    core-js "^2.4.0"
+    regenerator-runtime "^0.11.0"
+
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.sdp.nd/balanced-match/download/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
@@ -3211,6 +3230,11 @@ core-js-compat@^3.6.2:
   dependencies:
     browserslist "^4.8.5"
     semver "7.0.0"
+
+core-js@^2.4.0:
+  version "2.6.11"
+  resolved "http://registry.npm.sdp.nd/core-js/download/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
+  integrity sha1-OIMUafmSK97Y7iHJ3EaYXgOZMIw=
 
 core-js@^3.5.0:
   version "3.6.5"
@@ -4188,7 +4212,7 @@ escalade@^3.0.2:
   resolved "http://registry.npm.sdp.nd/escalade/download/escalade-3.0.2.tgz#6a580d70edb87880f22b4c91d0d56078df6962c4"
   integrity sha1-algNcO24eIDyK0yR0NVgeN9pYsQ=
 
-escape-html@~1.0.3:
+escape-html@^1.0.3, escape-html@~1.0.3:
   version "1.0.3"
   resolved "http://registry.npm.sdp.nd/escape-html/download/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
@@ -5720,6 +5744,23 @@ interpret@^1.4.0:
   resolved "http://registry.npm.sdp.nd/interpret/download/interpret-1.4.0.tgz#665ab8bc4da27a774a40584e812e3e0fa45b1a1e"
   integrity sha1-Zlq4vE2iendKQFhOgS4+D6RbGh4=
 
+intl-messageformat-parser@1.4.0:
+  version "1.4.0"
+  resolved "http://registry.npm.sdp.nd/intl-messageformat-parser/download/intl-messageformat-parser-1.4.0.tgz#b43d45a97468cadbe44331d74bb1e8dea44fc075"
+  integrity sha1-tD1FqXRoytvkQzHXS7Ho3qRPwHU=
+
+intl-messageformat@^2.2.0:
+  version "2.2.0"
+  resolved "http://registry.npm.sdp.nd/intl-messageformat/download/intl-messageformat-2.2.0.tgz#345bcd46de630b7683330c2e52177ff5eab484fc"
+  integrity sha1-NFvNRt5jC3aDMwwuUhd/9eq0hPw=
+  dependencies:
+    intl-messageformat-parser "1.4.0"
+
+intl@^1.2.5:
+  version "1.2.5"
+  resolved "http://registry.npm.sdp.nd/intl/download/intl-1.2.5.tgz#82244a2190c4e419f8371f5aa34daa3420e2abde"
+  integrity sha1-giRKIZDE5Bn4Nx9ao02qNCDiq94=
+
 invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "http://registry.npm.sdp.nd/invariant/download/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
@@ -6799,6 +6840,11 @@ load-json-file@^2.0.0:
     parse-json "^2.2.0"
     pify "^2.0.0"
     strip-bom "^3.0.0"
+
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.sdp.nd/load-script/download/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
+  integrity sha1-BJGTngvuVkPuSUp+PaPSuscMbKQ=
 
 loader-runner@^2.4.0:
   version "2.4.0"
@@ -9788,6 +9834,11 @@ regenerate@^1.4.0:
   version "1.4.1"
   resolved "http://registry.npm.sdp.nd/regenerate/download/regenerate-1.4.1.tgz#cad92ad8e6b591773485fbe05a485caf4f457e6f"
   integrity sha1-ytkq2Oa1kXc0hfvgWkhcr09Ffm8=
+
+regenerator-runtime@^0.11.0:
+  version "0.11.1"
+  resolved "http://registry.npm.sdp.nd/regenerator-runtime/download/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+  integrity sha1-vgWtf5v30i4Fb5cmzuUBf78Z4uk=
 
 regenerator-runtime@^0.13.3, regenerator-runtime@^0.13.4:
   version "0.13.7"

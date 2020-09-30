@@ -1,3 +1,14 @@
-.page1{
+.main {
+  width: 60%;
+  margin: 20px auto;
+  text-align: center;
+
+  .switch {
+    margin-right: 10px;
+  }
+
+  .page {
+    margin-top: 20px;
     color: green;
+  }
 }
